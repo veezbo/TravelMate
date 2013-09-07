@@ -4,5 +4,9 @@
     <string name="app_name">Travelmate</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="photoFX">Photo Effects</string>
+    <string name="Two">Two</string>
+    <string name="Three">Three</string>
+    <string name="Four">Four</string>
 
 </resources>
