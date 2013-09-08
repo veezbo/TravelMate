@@ -28,8 +28,9 @@ public class PearsonActivity extends Activity implements OnItemSelectedListener 
 	
 	static final String TAG = "PearsonActivity";
 	
-	Spinner spinner;
+	Spinner spinner, spinner2;
 	String category = "(Select Category)";
+	String eye = "(Are you near one of these?)";
 	ArrayList<String> items = new ArrayList<String>();
 	ArrayAdapter<String> listAdapter;
 	
@@ -47,6 +48,13 @@ public class PearsonActivity extends Activity implements OnItemSelectedListener 
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(adapter);
 		spinner.setOnItemSelectedListener(this);
+		
+		spinner2 = (Spinner) findViewById(R.id.eyes);
+		ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.eyewitness_array, android.R.layout.simple_spinner_item);
+		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinner2.setAdapter(adapter2);
+		spinner2.setOnItemSelectedListener(this);
+
 	}
 
 	@Override
@@ -110,8 +118,14 @@ public class PearsonActivity extends Activity implements OnItemSelectedListener 
 	}
 
 	@Override
-	public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-		category = (String) parent.getItemAtPosition(pos);
+	public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
+		switch (v.getId()) {
+		case R.id.categories:
+			category = (String) parent.getItemAtPosition(pos);
+			break;
+		case R.id.eyes:
+			eye = (String) parent.getItemAtPosition(pos);
+		}
 	}
 
 	@Override

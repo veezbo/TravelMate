@@ -19,4 +19,12 @@ public class PearsonURL {
 	public static String getUrlPlaces(int limit, String category, float lat, float lon, int dist) {
 		return "http://api.pearson.com/v2/travel/places?"+"limit="+limit+"&category="+category+"&lat="+lat+"&lon"+lon+"&dist"+dist+"&apikey="+API_KEY;
 	}
+	
+	public static String getUrlEyewitness(String guidebook, String q) {
+		return "http://api.pearson.com/eyewitness/"+guidebook+"/block.json?"+"q="+q+"&apikey="+API_KEY;
+	}
+	
+	public static String getUrlEyewitnessBlock(String guidebook, String entry) {
+		return "http://api.pearson.com/eyewitness/"+guidebook+"/block/"+entry+".json?"+"apikey="+API_KEY;
+	}
 }
