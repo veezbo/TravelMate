@@ -76,22 +76,22 @@ public class ChevyActivity extends Activity {
 			try {
 				HttpClient client = new DefaultHttpClient();
 				HttpPost post = new HttpPost("https://developer-gm-com-fb0q4jueqqt8.runscope.net/api/v1/account/vehicles/1G6DH5E53C0000003/commands/lockDoor");
+				
 				post.setHeader("Authorization", "Bearer " + ACCESS_TOKEN);
 				post.setHeader("Accept", "application/json");
+				
 	    		StringEntity params = new StringEntity("{\"lockDoorRequest\": { \"delay\":\"0\" }}");
 	    		post.setEntity(params);
-	    		Log.d(TAG, "composed request");
+	    		
 				HttpResponse responsePost = client.execute(post);
-				Log.d(TAG, "got response");
 				BufferedReader rd = new BufferedReader(new InputStreamReader(responsePost.getEntity().getContent(), "UTF-8"));
-				String line = rd.readLine();
-				Log.d(TAG, "got bufferedreader and line: " + line.replace("\\", ""));
-				//JsonObject jo = JsonObject.readFrom(line.replace("\\", ""));
-				JSONObject jo = new JSONObject(line.replace("\\", ""));
-				Log.d(TAG, "got jsonobject");
+				String line = rd.readLine().replace("\\", "");
+				
+				JSONObject jo = new JSONObject(line);
 				Log.d(TAG, jo.toString());
-				jo.get("status");
-				if (jo != null) {
+				
+				String status = jo.getJSONObject("commandResponse").getString("status");
+				if (!status.equals("failed")) {
 					Toast.makeText(getApplicationContext(), "Successfully Locked Car", Toast.LENGTH_SHORT).show();
 				}
 			}
@@ -104,13 +104,26 @@ public class ChevyActivity extends Activity {
 			try {
 				HttpClient client = new DefaultHttpClient();
 				HttpPost post = new HttpPost("https://developer.gm.com/api/v1/account/vehicles/1G6DH5E53C0000003/commands/diagnostics");
+				
 				post.setHeader("Authorization", "Bearer " + ACCESS_TOKEN);
 				post.setHeader("Accept", "application/json");
+				
+				StringEntity params = new StringEntity("{\"diagnosticsRequest\": { \"diagnostic\": [ \"ChargeMode\", \"CommuteSchedule\", \"EVBatteryLevel\", \"EVChargeStat\", \"EVEstimatedChargeEnd\", \"EVPlugState\", \"EVPlugVoltage\", \"EVScheduledChargeStart\", \"FuelTankInfo\", \"LastTripDistance\", \"LastTripFuelEconomy\", \"LifetimeEVOdometer\", \"LifetimeFuelEconomy\", \"LifetimeFuelUsed\", \"Odometer\", \"OilLife\", \"TirePressure\", \"VehicleRange\" ] }}");
+				post.setEntity(params);
+								
 				HttpResponse responsePost = client.execute(post);
 				BufferedReader rd = new BufferedReader(new InputStreamReader(responsePost.getEntity().getContent(), "UTF-8"));
-				JsonObject jo = JsonObject.readFrom(rd);
+				
+				StringBuilder sb = new StringBuilder();
+		        String inputStr;
+		        while ((inputStr = rd.readLine()) != null) {
+		        	sb.append(inputStr); 
+		        }
+		        
+				Log.d(TAG, sb.toString());
+				JSONObject jo = new JSONObject(sb.toString());
 				if (jo != null) {
-					Toast.makeText(getApplicationContext(), "Would have displayed diagnostics if available", Toast.LENGTH_SHORT).show();
+					Toast.makeText(getApplicationContext(), "Diagnostics to Come..", Toast.LENGTH_SHORT).show();
 				}
 			}
 			catch (Exception e) {
@@ -124,11 +137,17 @@ public class ChevyActivity extends Activity {
 				HttpPost post = new HttpPost("https://developer.gm.com/api/v1/account/vehicles/1G6DH5E53C0000003/commands/start");
 				post.setHeader("Authorization", "Bearer " + ACCESS_TOKEN);
 				post.setHeader("Accept", "application/json");
+				
+				StringEntity params = new StringEntity("{\"startRequest\":{\"delay\":\"0\"}}");
+				post.setEntity(params);
+				
 				HttpResponse responsePost = client.execute(post);
 				BufferedReader rd = new BufferedReader(new InputStreamReader(responsePost.getEntity().getContent(), "UTF-8"));
-				JsonObject jo = JsonObject.readFrom(rd);
-				if (jo != null) {
-					Toast.makeText(getApplicationContext(), "Started Car", Toast.LENGTH_SHORT).show();
+				JSONObject jo = new JSONObject(rd.readLine());
+				Log.d(TAG, jo.toString());
+				String status = jo.getJSONObject("commandResponse").getString("status");
+				if (!status.equals("failure")) {
+					Toast.makeText(getApplicationContext(), "Successfully Started Car", Toast.LENGTH_SHORT).show();
 				}
 			}
 			catch (Exception e) {
@@ -143,8 +162,11 @@ public class ChevyActivity extends Activity {
 				post.setHeader("Accept", "application/json");
 				HttpResponse responsePost = client.execute(post);
 				BufferedReader rd = new BufferedReader(new InputStreamReader(responsePost.getEntity().getContent(), "UTF-8"));
-				JsonObject jo = JsonObject.readFrom(rd);
-				if (jo != null) {
+				JSONObject jo = new JSONObject(rd.readLine());
+				String status = jo.getJSONObject("commandResponse").getString("status");
+				Log.d(TAG, jo.toString());
+				
+				if (!status.equals("failure")) {
 					Toast.makeText(getApplicationContext(), "Retrieved Vehicle Location", Toast.LENGTH_SHORT).show();
 				}
 			}
