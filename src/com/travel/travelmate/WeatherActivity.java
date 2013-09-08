@@ -60,8 +60,10 @@ public class WeatherActivity extends Activity{
 					String icon_url = j.get("icon_url").toString();
 					String title = j.get("title").toString();
 					String fcttext = j.get("fcttext").toString();
+					title = title.replace("\"", "");
+					fcttext = fcttext.replace("\"", "");
 					//add each entry to listview
-					items.add(fcttext);
+					items.add(title+":\n\n"+fcttext);
 					adapter.notifyDataSetChanged();
 					Log.d(TAG,"icon_url:"+icon_url+", title:"+title+", fcttext:"+fcttext);
 				}

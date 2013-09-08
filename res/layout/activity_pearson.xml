@@ -25,4 +25,13 @@
         android:onClick="onClickSearch"
         android:text="@string/places_search" />
 
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_nearby"
+        android:layout_centerHorizontal="true" >
+
+    </ListView>
+
 </RelativeLayout>

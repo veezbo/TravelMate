@@ -1,17 +1,10 @@
 package com.travel.travelmate;
 
 import java.io.IOException;
-
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonValue;
-import com.helper.json.JsonHelper;
-import com.http.urls.PearsonURL;
-
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -21,7 +14,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
+
+import com.eclipsesource.json.JsonArray;
+import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
+import com.helper.json.JsonHelper;
+import com.http.urls.PearsonURL;
 
 public class PearsonActivity extends Activity implements OnItemSelectedListener {
 	
@@ -29,12 +30,17 @@ public class PearsonActivity extends Activity implements OnItemSelectedListener 
 	
 	Spinner spinner;
 	String category = "(Select Category)";
+	ArrayList<String> items = new ArrayList<String>();
+	ArrayAdapter<String> listAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.d(TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pearson);
+		ListView lv = (ListView) findViewById(R.id.listView1);
+		listAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,items);
+		lv.setAdapter(listAdapter);
 		
 		spinner = (Spinner) findViewById(R.id.categories);
 		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.category_array, android.R.layout.simple_spinner_item);
@@ -91,6 +97,11 @@ public class PearsonActivity extends Activity implements OnItemSelectedListener 
 				ptitle = j.get("title").toString();
 				purl = j.get("url").toString();
 				
+				purl = "http://api.pearson.com" + purl + "&=" + PearsonURL.API_KEY;
+				ptitle = ptitle.replace("\"", "");
+				purl = purl.replace("\"", "");
+				items.add(ptitle+":\n\n"+purl);
+				listAdapter.notifyDataSetChanged();
 				Log.d(TAG, ptitle);
 				Log.d(TAG, purl);
 			}
