@@ -18,13 +18,13 @@
         android:text="@string/photoFX" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/top10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/buttonPhotoFX"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-        android:text="@string/Two" />
+        android:text="@string/top10" />
 
     <Button
         android:id="@+id/button3"
