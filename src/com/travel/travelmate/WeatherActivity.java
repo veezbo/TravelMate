@@ -38,8 +38,12 @@ public class WeatherActivity extends Activity{
 	public void onClick(View v) {
 		switch(v.getId()) {
 		case R.id.buttonForecast:
+			zipCode = null;
+			adapter.clear();
+			items.clear();
 			zipCode = (EditText) findViewById(R.id.editTextZip);
 			String url = "";
+			Log.d(TAG,"zipCode text:"+zipCode.getText());
 			url = WeatherURL.getWeatherUrl("forecast10day",zipCode.getText().toString(),"json");
 			Log.d(TAG,"zip code:"+zipCode.getText() + "url:"+url);
 			try {
@@ -55,6 +59,7 @@ public class WeatherActivity extends Activity{
 				Log.d(TAG,"Result for jo.get(forecastday): "+jo.get("forecastday"));
 				Log.d(TAG,"Result for forecast.get(forecastday): "+forecast.get("forecastday"));
 //				JsonArray results = forecast.get("forecastday").asArray();
+				items.clear();
 				for(JsonValue value : results) {
 					JsonObject j = value.asObject();
 					String icon_url = j.get("icon_url").toString();

@@ -99,13 +99,14 @@ public class PearsonActivity extends Activity implements OnItemSelectedListener 
 			}
 			
 			JsonArray results = jo.get("results").asArray();
+			items.clear();
 			for (JsonValue value : results) {
 				String ptitle, purl;
 				JsonObject j = value.asObject();
 				ptitle = j.get("title").toString();
 				purl = j.get("url").toString();
 				
-				purl = "http://api.pearson.com" + purl + "&=" + PearsonURL.API_KEY;
+				purl = "http://api.pearson.com" + purl + "&=apikey" + PearsonURL.API_KEY;
 				ptitle = ptitle.replace("\"", "");
 				purl = purl.replace("\"", "");
 				items.add(ptitle+":\n\n"+purl);
