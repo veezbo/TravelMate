@@ -60,7 +60,7 @@ public class MainActivity extends Activity {
 			Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			File imagesFolder = new File(Environment.getExternalStorageDirectory(), "FXImages");
 			imagesFolder.mkdirs();
-			File image = new File(imagesFolder,"FXpic.jpg");
+			File image = new File(imagesFolder,"FXpic_"+System.currentTimeMillis()+".jpg");
 			fileUri = Uri.fromFile(image);
 			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 			startActivityForResult(takePictureIntent, TAKE_PICTURE);
