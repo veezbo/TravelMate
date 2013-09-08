@@ -12,6 +12,8 @@
     <string name="lock">Ensure Car Locked</string>
     <string name="unlock">Unlock Car</string>
     <string name="diagnostics">Detect Problems</string>
+    <string name="forecast">Weather forecast</string>
+    <string name="zipHint">Enter zip code</string>
     
     <string-array name="category_array">
         <item>(Select Category)</item>

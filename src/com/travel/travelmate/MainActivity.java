@@ -65,16 +65,19 @@ public class MainActivity extends Activity {
 			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 			startActivityForResult(takePictureIntent, TAKE_PICTURE);
 			break;
-		case R.id.top10:
-			Log.d(TAG, "top10 clicked");
-			//String url = "http://api.pearson.com/v2/travel/topten?limit=1&search=San+Francisco&dist=10000&apikey=D9O5GQEOC5RNPDHSiICpOxGDfulfFxbM";
-			String url = PearsonURL.getUrlTopTen(15, "San Francisco", 10000);
-			JsonObject jo = JsonHelper.readJsonFromUrl(url);
-			if (jo == null) {
-				Log.d(TAG, "darn null json object");
-			}
-			Log.d(TAG, url);
-			Toast.makeText(getApplicationContext(), jo.get("total").toString(), Toast.LENGTH_LONG).show();
+		case R.id.buttonWeather:
+			Log.d(TAG,"buttonWeather clicked");
+			Intent i = new Intent(MainActivity.this, WeatherActivity.class);
+			startActivity(i);
+//			Log.d(TAG, "top10 clicked");
+//			//String url = "http://api.pearson.com/v2/travel/topten?limit=1&search=San+Francisco&dist=10000&apikey=D9O5GQEOC5RNPDHSiICpOxGDfulfFxbM";
+//			String url = PearsonURL.getUrlTopTen(15, "San Francisco", 10000);
+//			JsonObject jo = JsonHelper.readJsonFromUrl(url);
+//			if (jo == null) {
+//				Log.d(TAG, "darn null json object");
+//			}
+//			Log.d(TAG, url);
+//			Toast.makeText(getApplicationContext(), jo.get("total").toString(), Toast.LENGTH_LONG).show();
 			break;
 		case R.id.button3:
 			Log.d(TAG, "button3 clicked");
