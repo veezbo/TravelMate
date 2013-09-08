@@ -10,13 +10,13 @@
         android:layout_weight="1.01"
         android:orientation="vertical" >
 
-        <Button
+        <ImageButton
             android:id="@+id/lock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick = "onClickCar"
-            android:text="@string/lock" />
+            android:background="@drawable/key" />
 
         <Button
             android:id="@+id/diagnostics"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick = "onClickCar"
-            android:text="@string/diagnostics" />
+            android:background="@drawable/gas" />
 
     </LinearLayout>
 
@@ -35,19 +35,19 @@
         android:orientation="vertical" >
 
         <ImageButton
-            android:id="@+id/top10"
+            android:id="@+id/start"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick = "onClickCar"
-            android:src="@drawable/btn_normal" />
+            android:background="@drawable/start" />
 
         <ImageButton
-            android:id="@+id/button4"
+            android:id="@+id/location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/btn_normal"
+            android:background="@drawable/gps"
             android:onClick = "onClickCar" />
     </LinearLayout>
 

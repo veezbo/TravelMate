@@ -17,7 +17,7 @@
             android:layout_weight="1"
             android:onClick = "onClick"
             android:scaleType = "fitCenter"
-            android:src="@drawable/photofx" />
+            android:background="@drawable/camera" />
 
         <ImageButton
             android:id="@+id/button3"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick = "onClick"
-            android:src="@drawable/btn_normal" />
+            android:background="@drawable/city" />
 
     </LinearLayout>
 
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/btn_normal"
+            android:background="@drawable/car"
             android:onClick = "onClick" />
     </LinearLayout>
 
