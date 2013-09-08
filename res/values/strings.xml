@@ -8,5 +8,16 @@
     <string name="top10">Top 10</string>
     <string name="Three">Three</string>
     <string name="Four">Four</string>
+    <string name="search_nearby">Search Nearby</string>
+    
+    <string-array name="category_array">
+        <item></item>
+        <item>Nightlife</item>
+        <item>Restaurants</item>
+        <item>Hotel</item>
+        <item>Shopping</item>
+        <item>Attractions</item>
+    </string-array>
+    
 
 </resources>

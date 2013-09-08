@@ -33,6 +33,7 @@
         <activity android:name="com.radiumone.effects_sdk.CropImage" android:configChanges="orientation|keyboardHidden" android:screenOrientation="portrait" />
 		<activity android:name="com.radiumone.effects_sdk.EffectsChooserActivity" android:configChanges="orientation|keyboardHidden" android:launchMode="singleTop" android:screenOrientation="portrait" />
 		<activity android:name="com.radiumone.effects_sdk.EffectsStoreActivity" android:configChanges="orientation|keyboardHidden" android:screenOrientation="portrait" />
+		<activity android:name="com.travel.travelmate.PearsonActivity" />
 		<service android:name="com.radiumone.effects_sdk.FilterDownloadManager"/>
         <activity
             android:name="com.travel.travelmate.MainActivity"

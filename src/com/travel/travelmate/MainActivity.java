@@ -75,6 +75,11 @@ public class MainActivity extends Activity {
 			}
 			Log.d(TAG, url);
 			Toast.makeText(getApplicationContext(), jo.get("total").toString(), Toast.LENGTH_LONG).show();
+			break;
+		case R.id.button3:
+			Log.d(TAG, "button3 clicked");
+			Intent pearsonIntent = new Intent(MainActivity.this, PearsonActivity.class);
+			startActivity(pearsonIntent);
 		}
 	}
 

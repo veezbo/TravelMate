@@ -35,6 +35,7 @@
         android:layout_below="@+id/top10"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="19dp"
+        android:onClick = "onClick"
         android:text="@string/Three" />
 
     <Button
@@ -45,6 +46,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/button3"
         android:layout_marginTop="26dp"
+        android:onClick = "onClick"
         android:text="@string/Four" />
 
 </RelativeLayout>
