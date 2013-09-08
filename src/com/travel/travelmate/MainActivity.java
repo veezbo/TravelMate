@@ -4,12 +4,18 @@ import java.io.IOException;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Images;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -23,7 +29,8 @@ import com.radiumone.effects_sdk.R1PhotoEffectsSDK;
 public class MainActivity extends Activity {
 	private final int TAKE_PICTURE = 999;
 	private final String TAG = "TravelmateMain";
-
+	Uri fileUri;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,10 +55,16 @@ public class MainActivity extends Activity {
 	}
 	
 	public void onClick(View v) throws IOException {
+
 		switch(v.getId()) {
 		case R.id.buttonPhotoFX:
 			Log.d(TAG,"buttonPhotoFX clicked");
 			Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			File imagesFolder = new File(Environment.getExternalStorageDirectory(), "FXImages");
+			imagesFolder.mkdirs();
+			File image = new File(imagesFolder,"FXpic.jpg");
+			fileUri = Uri.fromFile(image);
+			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
 			startActivityForResult(takePictureIntent, TAKE_PICTURE);
 			break;
 		case R.id.top10:
@@ -66,32 +79,48 @@ public class MainActivity extends Activity {
 			Toast.makeText(getApplicationContext(), jo.get("total").toString(), Toast.LENGTH_LONG).show();
 		}
 	}
-	
-	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Log.d(TAG,"request:"+requestCode+", result:"+resultCode+", data:"+data);
+		//		if(resultCode == )
 		if(requestCode == TAKE_PICTURE) {
-			Bundle extras = intent.getExtras();
-			Bitmap mImageBitmap = (Bitmap) extras.get("data");
-			R1PhotoEffectsSDK r1sdk = R1PhotoEffectsSDK.getManager();
-			r1sdk.launchPhotoEffects(this,
-					mImageBitmap,
-					true,
-					new R1PhotoEffectsSDK.PhotoEffectsListener() {            
-				@Override
-				public void onEffectsComplete(Bitmap output) {
-					if( null == output ){
-						return;
+			Bitmap mImageBitmap;
+			try {
+				mImageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),fileUri);
+				//			Bitmap mImageBitmap = (Bitmap) extras.get("data");
+				R1PhotoEffectsSDK r1sdk = R1PhotoEffectsSDK.getManager();
+				r1sdk.launchPhotoEffects(this,
+						mImageBitmap,
+						true,
+						new R1PhotoEffectsSDK.PhotoEffectsListener() {     
+					@Override
+					public void onEffectsComplete(Bitmap output) {
+						if( null == output ){
+							return;
+						}
+						// do something with output   
+						Log.d(TAG, "Photo FX will now manipulate image");
+						String path = Images.Media.insertImage(getContentResolver(), output, "Titlehere", null);
+						Intent i = new Intent(Intent.ACTION_SEND);
+						i.putExtra(Intent.EXTRA_STREAM,Uri.parse(path));
+						i.setType("image/jpeg");
+						startActivity(i);
 					}
-					// do something with output   
-					Log.d(TAG, "Photo FX will now manipulate image");
-					Intent i = new Intent();
-				}
-				@Override
-				public void onEffectsCanceled() {
-					Log.d(TAG, "Photo FX canceled");
-					// user canceled                  
-				}
-			} 
-					);
+					@Override
+					public void onEffectsCanceled() {
+						Log.d(TAG, "Photo FX canceled");
+						// user canceled                  
+					}
+				} 
+
+						);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
