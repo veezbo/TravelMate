@@ -80,6 +80,12 @@ public class MainActivity extends Activity {
 			Log.d(TAG, "button3 clicked");
 			Intent pearsonIntent = new Intent(MainActivity.this, PearsonActivity.class);
 			startActivity(pearsonIntent);
+			break;
+		case R.id.button4:
+			Log.d(TAG, "button4 clicked");
+			Intent chevyIntent = new Intent(MainActivity.this, ChevyActivity.class);
+			startActivity(chevyIntent);
+			break;
 		}
 	}
 

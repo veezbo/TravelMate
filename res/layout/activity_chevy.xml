@@ -10,21 +10,21 @@
         android:layout_weight="1.01"
         android:orientation="vertical" >
 
-        <ImageButton
-            android:id="@+id/buttonPhotoFX"
+        <Button
+            android:id="@+id/lock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick = "onClick"
-            android:src="@drawable/btn_normal" />
+            android:onClick = "onClickCar"
+            android:text="@string/lock" />
 
-        <ImageButton
-            android:id="@+id/button3"
+        <Button
+            android:id="@+id/diagnostics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick = "onClick"
-            android:src="@drawable/btn_normal" />
+            android:onClick = "onClickCar"
+            android:text="@string/diagnostics" />
 
     </LinearLayout>
 
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick = "onClick"
+            android:onClick = "onClickCar"
             android:src="@drawable/btn_normal" />
 
         <ImageButton
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/btn_normal"
-            android:onClick = "onClick" />
+            android:onClick = "onClickCar" />
     </LinearLayout>
 
 </LinearLayout>
