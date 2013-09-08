@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/categories"
         android:layout_centerHorizontal="true"
-        android:onClick="onClick"
-        android:text="@string/search_nearby" />
+        android:onClick="onClickSearch"
+        android:text="@string/places_search" />
 
 </RelativeLayout>

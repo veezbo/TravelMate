@@ -8,10 +8,13 @@
     <string name="top10">Top 10</string>
     <string name="Three">Three</string>
     <string name="Four">Four</string>
-    <string name="search_nearby">Search Nearby</string>
+    <string name="places_search">Search Nearby</string>
+    <string name="lock">Ensure Car Locked</string>
+    <string name="unlock">Unlock Car</string>
+    <string name="diagnostics">Detect Problems</string>
     
     <string-array name="category_array">
-        <item></item>
+        <item>(Select Category)</item>
         <item>Nightlife</item>
         <item>Restaurants</item>
         <item>Hotel</item>

@@ -11,6 +11,7 @@ import com.http.urls.PearsonURL;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -27,10 +28,11 @@ public class PearsonActivity extends Activity implements OnItemSelectedListener 
 	static final String TAG = "PearsonActivity";
 	
 	Spinner spinner;
-	String category;
+	String category = "(Select Category)";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		Log.d(TAG, "onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pearson);
 		
@@ -48,20 +50,39 @@ public class PearsonActivity extends Activity implements OnItemSelectedListener 
 		return true;
 	}
 	
-	public void onClick(View v) throws IOException {
-
+	public void onClickSearch(View v) throws IOException {
+		
 		switch(v.getId()) {
 		case R.id.search_nearby:
-			LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+			Log.d(TAG, "clicked search nearby");
+			LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 			Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+			//Location location = lm.getLastKnownLocation(lm.getBestProvider(new Criteria(), false));
+			if (location == null) {
+				Log.d(TAG, "darn null location returned");
+				location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			}
+			if (location == null) {
+				Log.d(TAG, "darn null location returned");
+				location = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+			}
+			
 			float lat = (float) location.getLatitude();
 			float lon = (float) location.getLongitude();
-			String url = PearsonURL.getUrlPlaces(10, lat, lon, 10000);
+			Log.d(TAG, "got location data");
+			String url = "";
+			if (category.equals("(Select Category)")) {
+				url = PearsonURL.getUrlPlaces(10, lat, lon, 10000);
+			}
+			else {
+				url = PearsonURL.getUrlPlaces(10, category, lat, lon, 10000);
+			}
+			Log.d(TAG, "got pearson url: ");
+			Log.d(TAG, url);
 			JsonObject jo = JsonHelper.readJsonFromUrl(url);
 			if (jo == null) {
 				Log.d(TAG, "darn null json object");
 			}
-			Log.d(TAG, url);
 			
 			JsonArray results = jo.get("results").asArray();
 			for (JsonValue value : results) {
