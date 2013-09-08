@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick = "onClick"
-            android:src="@drawable/btn_normal" />
+            android:scaleType = "fitCenter"
+            android:src="@drawable/photofx" />
 
         <ImageButton
             android:id="@+id/button3"
@@ -40,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick = "onClick"
-            android:src="@drawable/btn_normal" />
+            android:src="@drawable/pearson" />
 
         <ImageButton
             android:id="@+id/button4"
