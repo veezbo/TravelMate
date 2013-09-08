@@ -91,6 +91,7 @@ public class PearsonActivity extends Activity implements OnItemSelectedListener 
 			}
 			
 			JsonArray results = jo.get("results").asArray();
+			items.clear();
 			for (JsonValue value : results) {
 				String ptitle, purl;
 				JsonObject j = value.asObject();
