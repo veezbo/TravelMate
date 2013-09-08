@@ -2,8 +2,6 @@ package com.travel.travelmate;
 
 import java.io.IOException;
 
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -70,7 +68,7 @@ public class MainActivity extends Activity {
 		case R.id.top10:
 			Log.d(TAG, "top10 clicked");
 			//String url = "http://api.pearson.com/v2/travel/topten?limit=1&search=San+Francisco&dist=10000&apikey=D9O5GQEOC5RNPDHSiICpOxGDfulfFxbM";
-			String url = PearsonURL.getUrl(1, "San Francisco", 10000);
+			String url = PearsonURL.getUrlTopTen(15, "San Francisco", 10000);
 			JsonObject jo = JsonHelper.readJsonFromUrl(url);
 			if (jo == null) {
 				Log.d(TAG, "darn null json object");
